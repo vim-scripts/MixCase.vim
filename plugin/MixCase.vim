@@ -1,7 +1,7 @@
 " File:         "MixCase.vim" 
-" Last Change:  2004/06/25 15:05:54 .
+" Last Change:  2004/06/28 13:14:18 .
 " Author:       Jean-Christophe Clavier <jcclavier@free.Fr>
-" Version:      0.3
+" Version:      0.4
 " License:      GPL (http://www.gnu.org/licenses/gpl.html)
 " Thanks:
 "     Paul Etchell  : report the utf-8 encoding problem
@@ -103,6 +103,10 @@
 " version, you can uncomment these lines (which are useless... even more than
 " the rest of the plugin. It was just to test custom completion)
 "
+" -----------------------------------------------------------------------------
+" Thanks
+" -----------------------------------------------------------------------------
+" 
 "
 " Line continuation used here
 let s:cpo_save = &cpo
@@ -146,21 +150,21 @@ if !exists(':MCHackerzMixSearchPattern')
 endif
 if !exists(':MCCambridgeMixWordUnderCurs')
 "    if version < 610
-        command -nargs=? MCCambridgeMixWordUnderCurs call s:MCHackerzMixWordUnderCurs(<f-args>)
+        command -nargs=? MCCambridgeMixWordUnderCurs call s:MCCambridgeMixWordUnderCurs(<f-args>)
 "    else
 "        command -complete=custom,ListArgs -nargs=? MCCambridgeMixWordUnderCurs call s:MCHackerzMixWordUnderCurs(<f-args>)
 "    endif
 endif
 if !exists(':MCCambridgeMixNSubstWordUnderCurs')
 "    if version < 610
-        command -nargs=? MCCambridgeMixNSubstWordUnderCurs call s:MCHackerzMixNSubstWordUnderCurs(<f-args>)
+        command -nargs=? MCCambridgeMixNSubstWordUnderCurs call s:MCCambridgeMixNSubstWordUnderCurs(<f-args>)
 "    else
 "        command -complete=custom,ListArgs -nargs=? MCCambridgeMixNSubstWordUnderCurs call s:MCHackerzMixNSubstWordUnderCurs(<f-args>)
 "    endif
 endif
 if !exists(':MCCambridgeMixSearchPattern')
 "    if version < 610
-        command -nargs=? MCCambridgeMixSearchPattern call s:MCHackerzMixSearchPattern(<f-args>)
+        command -nargs=? MCCambridgeMixSearchPattern call s:MCCambridgeMixSearchPattern(<f-args>)
 "    else
 "        command -complete=custom,ListArgs -nargs=? MCCambridgeMixSearchPattern call s:MCHackerzMixSearchPattern(<f-args>)
 "    endif

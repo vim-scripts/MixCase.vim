@@ -1,6 +1,5 @@
 import string, re, random
 class MixCase:
-    """version 0.3"""
     __rangeLines = []
     __mixedText = []
     __mixTable=[]
