@@ -1,28 +1,70 @@
-*mixcase.txt*			MixCase		Last Change:  2003/11/24 10:11:30 .
+*mixcase.txt*			MixCase		Last Change:  2004/06/25 14:38:15 .
 
 Author:       Jean-Christophe Clavier <jcclavier{at}free.Fr>
 
 mixcase								*mixcase*
 
-1. introduction						|mixcase-intro|
-2. Commands provided					|mixcase-commands|
-3. Installation						|mixcase-install|
+1. introduction						|MCIntro|
+2. Commands provided					|MCCommands|
+	|MCCambridge|
+	|MCHackerz|
+	|MCHackerzMixWordUnderCurs|
+	|MCHackerzMixNSubstWordUnderCurs|
+	|MCHackerzMixSearchPattern|
+	|MCCambridgeMixWordUnderCurs|
+	|MCCambridgeMixNSubstWordUnderCurs|
+	|MCCambridgeMixSearchPattern|
+	|MCSetIniFile|
+	|MixCase|
+	|MixCambridge|
+3. Initialisation file					|MCIni| |MCInifile|
+	Encoding					|MCEncoding|
+	Syntax						|MCIniSyntax|
+4. Installation						|MCInstall|
 
 ==============================================================================
-1. Intoduction						*mixcase-intro*
+1. Intoduction						*MCIntro*
 
-This plugin is absolutely useless.
+This plugin does nothing usefull but tries to do it well.
 it modifies words :
 - in the hackers way (mIxCAsE)
-- in the Cambridge way in cginnahg the odrer of the lreetts which doesn't
+- in the Cambridge way : it ceganhs the odrer of the lreetts which doesn't
               afceft the raitaeidbly vrey mcuh (when the wdors are not too lnog)
 
-Please, feel free to send me any comment as I don't know what to add to this
-plugin but if you miss something (linked to m;×¢4Z3, of course), I'd had it
-with pleasure.
+It now uses an ini file to customize the mi×ç4$3 table the way you want.
+Eventually, you can have many ini files to swap between many types of
+MiX(ªSÊ (if you have time to loose)
+
+No mapping is provided as you know better than me where you want to map your
+commands. Another reason is that I think mapping is for usefull commands which
+is not the case here.
+
+This plugin provides the following commands and functions :
+To Mix ranges of text :
+ :MCCambridge
+ :MCHackerz
+
+To Mix word under cursor and, eventually substitute all occurence :
+ :MCHackerzMixWordUnderCurs
+ :MCHackerzMixNSubstWordUnderCurs
+ :MCHackerzMixSearchPattern
+ :MCCambridgeMixWordUnderCurs
+ :MCCambridgeMixNSubstWordUnderCurs
+ :MCCambridgeMixSearchPattern
+
+To use in \= expressions :
+ function MixCase(...)
+ function MixCambridge(...)
+
+To manage ini file at runtime
+ :MCSetIniFile
+ :MCGoIniDir
+
+Please, feel free to send me any comment. If you miss something (linked to
+m;×¢4Z3, of course), I'd add it with pleasure.
 
 ==============================================================================
-2. Commands provided					*mixcase-commands*
+2. Commands provided					*MCCommands*
 
 							*MCCambridge*
 :MCCambridge  which can work on a range of lines (the default is to mix the
@@ -72,39 +114,182 @@ with pleasure.
                   before using :MCHackerz j3¥ñqBEF. To be used only by
                   hªRD¢õ®3 mI×cÅ$e Wª®LørD§
 
-							*MCMixWordUnderCurs*
-:MCMixWordUnderCurs    applies MCHackerz to the word under the cursor (with
+						*MCHackerzMixWordUnderCurs*
+:MCHackerzMixWordUnderCurs    applies MCHackerz to the word under the cursor (with
                   the same parameters)
 
-							*MCMixNSubstWordUnderCurs*
-:MCMixNSubstWordUnderCurs   applies MCHackerz to the word under the cursor
+						*MCHackerzMixNSubstWordUnderCurs*
+:MCHackerzMixNSubstWordUnderCurs   applies MCHackerz to the word under the cursor
                   (with the same parameters) and subtitute the result to all
                   occurs of this word in the text (very interesting for
                   M;x(ªz3 Wªr£øRÐs coding)
                   The default value for the parameter is "CoWb0yZ"
 
-							*MCMixSearchPattern*
-:MCMixSearchPattern   applies MCHackerz to the content of the last search
+						*MCHackerzMixSearchPattern*
+:MCHackerzMixSearchPattern   applies MCHackerz to the content of the last search
                   register (@/) result is written in the "m" register.
 
-							*MixCase*
-MixCase(a)        is a funtion that return the result of MCHackerz
+						*MCCambridgeMixWordUnderCurs*
+:MCCambridgeMixWordUnderCurs    applies MCCambridge to the word under the cursor (with
+                  the same parameters)
+
+						*MCCambridgeMixNSubstWordUnderCurs*
+:MCCambridgeMixNSubstWordUnderCurs   applies MCCambridge to the word under the cursor
+                  (with the same parameters) and subtitute the result to all
+                  occurs of this word in the text (very interesting for
+                  M;x(ªz3 Wªr£øRÐs coding)
+                  The default value for the parameter is "Crgimdbae"
+
+						*MCCambridgeMixSearchPattern*
+:MCCambridgeMixSearchPattern   applies MCCambridge to the content of the last search
+                  register (@/) result is written in the "m" register.
+
+						*MCSetIniFile*
+:MCSetIniFile     let you change the ini file. This is to allow you to have
+                  many ini files for different situations
+
+						*MCGoIniDir*
+:MCGoIniDir       let you go to the ini files directory so you can easily use
+                  the completion in MCSetIniFile
+
+						*MixCase*
+MixCase(...)      is a funtion that return the result of MCHackerz
                   applied to the matchstring of a regular expression.
                   It can be invoked in a command like
-                  :%s/RegExp/\=MixCase(level)
+                  :%s/RegExp/\=MixCase(level,string)
                   The default level is "WaR£ØRðZ"
+                  The default string is the whole RegExp. If you want to
+                        provide a string, you have to provide a level too.
+                  example :
+                  :%s/\(w\)\(ord\)/\=MixCase(0,submatch(1))
+                  will mix the first letter of the word using the ROokIE level
+                  Note: Uses the "m" register
+
+						*MixCambridge*
+MixCambridge(...) is the funtion like MixCase but using MCCambridge
+                  :%s/RegExp/\=MixCambridge(level,string)
+                  The default level is "Crgimdbae"
+                  The default string is the whole RegExp
+                  Note: Uses the "m" register
+
+More complicated exemple of use : >
+ s/\(e\)\(xpressio\)\(n\)/\=MixCambridge(1,MixCase(1,submatch(1)).submatch(2).MixCase(1,submatch(3)))
+will shuffle the letters of the word using MCCambridge and replace the first
+and the last with their MCHackerz version
 
 ==============================================================================
-2. Installation						*mixcase-install*
+3. Initialisation file					*MCIni* *MCInifile*
+
+The inifile is used to define the Mixcase table
+                                                        *MCEncoding*
+Encoding ~
+I used Latin1 encoding to define my ini files. This may cause problems if you
+use another encoding (like UTF-8).
+I haven't solved this problem yet (as I don't know how to do it automatically.
+If you have an idea...)
+Anyway, here is a way to solve the problem. In this exemple, I have the
+default ini file encoded in latin1 and I want to use UTF-8 encoding.
+1. Open VIM and :set encoding=latin1
+2. Open the ini file (MixCase.ini)
+3. Select all and cut it
+4. :set encoding=utf-8
+5. Paste.
+6. Save. You should now have an ini file utf-8 encoded.
+
+If you use different encoding style, you can have the corresponding ini files
+and map all the different :MCSetIniFile you want.
+
+                                                        *MCIniSyntax*
+Syntax ~
+The ini file initialize the Mix Case Table and some parameters the format of a
+line is >
+	a:a A;4;@ Å å ã ª à À â Â
+=> a            letter to mix (followed by ":")
+=> a A          letters used for ROokIE level (separated by " ")
+=> 4            letters used for CoWb0yZ level (separated by " ")
+=> @ Å ...    	letters used for WaR£ØRðZ level (separated by " ") >
+	groups are separated by ";"
+Separators can be customized with parameters letterSep and groupSep.
+Any symbol can be used in the WaR£ØRðZ part, included the group separator
+
+It is possible to write the same letter more than once in the same line to
+increase the probability of apparition of the chosen letter.
+
+You can use several parameters to customize the way MixCase will
+behave :
+mode:add/noadd >
+	add   = letters used for lower level mix are added to upper level letters
+	noadd = levels are defined independantly
+case:ic/noic >
+	ic    = ignore case. In this case, letters must be lowercase
+	noic  = don't ignore case
+separators:
+letterSep:,
+groupSep:;
+
+These parameters are optionnal. In the default ini file, they are written to
+show the syntax.
+
+The plugin provides two ini files to show how to write them. One is the
+"default" and another is to show a borderline way to use this plugin to play
+with cases (in a more complicated and not so powerful way than vim's native -
+but the aim of this plugin is certainly not to be useful).
+
+>
+	This is the beginning of the default ini file :
+mode:add
+case:ic
+letterSep: 
+groupSep:;
+
+a:a A;4;@ Å å ã ª à À â Â
+à:à À;4;@ Å å ã ª
+â:â Â;4;@ Å å ã ª
+b:b B;6;ß
+c:c C;;ç © ¢ (
+...
+
+>
+	This one may be used to put texts in lowercase (MCHackerz 0),
+	uppercase (MCHackerz 2)or invert case (MCHackerz 1):
+mode:dist
+case:noic
+letterSep: 
+groupSep:;
+
+a:a;A;A
+b:b;B;B
+c:c;C;C
+d:d;D;D
+...
+A:a;a;A
+B:b;b;B
+C:c;c;C
+D:d;d;D
+...
+
+Of course, you can do that another way with VIM using the native commands...
+
+==============================================================================
+4. Installation						*MCInstall*
 
 Note : this plugin uses python
 
-It is made of three files : MixCase.vim, mixcase.txt and MixCase.py.
+It is made of four files : MixCase.vim, mixcase.txt, MixCase.py and
+MixCase.ini
 MixCase.vim is to be dropped in the plugins directory, mixcase.txt in the doc
 directory and MixCase.py in a directory declared in the python path by a
 little >
 	let $PYTHONPATH=$PYTHONPATH . "/MyDirectory/Python"
 in your .vimrc
+By default, the ini file is to be dropped in the vim directory. I must admit
+it is not a very clever choice but I didn't know where to put it. Anyway, you
+can customize this in defining g:MC_DefaultIni in your .vimrc.
+let g:MC_DefaultIni = Path/MixCase.ini
+
+Remember that you can change the ini file at runtime with :MCSetIniFile 
+(see |MCSetIniFile|)
+
 
 To init the help tags, start Vim and do either
 :helptags ~/.vim/doc (for unix)
@@ -118,5 +303,6 @@ It works well on my 6.2 vim version but it seems to cause errors on load on
 previous versions. So I commented the lines involved. If you've got a 6.2
 version, you can uncomment these lines (which are useless... even more than
 the rest of the plugin. It was just to test custom completion)
+If you have any suggestion...;)
 
 vim:tw=78:ts=8:ft=help:norl:
