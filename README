@@ -1,0 +1,60 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=800
+
+==============================================================================
+1. Intoduction
+
+This plugin does nothing very useful
+it modifies words :
+- in the hackers way (m¡x(ã$e)
+- in the Cambridge way : it ceganhs the odrer of the lreetts which doesn't
+              afceft the raitaeidbly vrey mcuh (when the wdors are not too lnog)
+
+It now uses an ini file to customize the mi×ç4$3 table the way you want.
+Eventually, you can have many ini files to swap between many types of
+mI×ca5iÑG
+
+No mapping is provided as you know better than me where you want to map your
+commands. Another reason is that mapping is often used for useful commands which
+is not the case here.
+
+This plugin provides the following commands and functions : ~
+To Mix ranges of text :
+ :MCCambridge
+ :MCHackerz
+
+To Mix word under cursor and, eventually substitute all occurence :
+ :MCHackerzMixWordUnderCurs
+ :MCHackerzMixNSubstWordUnderCurs
+ :MCHackerzMixSearchPattern
+ :MCCambridgeMixWordUnderCurs
+ :MCCambridgeMixNSubstWordUnderCurs
+ :MCCambridgeMixSearchPattern
+
+These commands are long to type to easily know what they do but you can map them :
+for exemple, you can add
+map <F2>   :MCHackerzMixWordUnderCurs<CR>
+in your .vimrc
+
+
+To use in \= expressions :
+ function MixCase(...)
+ function MixCambridge(...)
+
+To manage ini file at runtime
+ :MCSetIniFile
+ :MCGoIniDir
+
+Please, feel free to send me any comment. If you miss something (linked to
+m;×¢4Z3, of course), I'd add it with pleasure.
+If you are to vote -1, i'd be pleased to know what was wrong and what you were waiting for ;-)
+
+==============================================================================
+2. Content of the archive
+
+    MixCase.vim            : The plugin (-> /plugin)
+    MixCase.py              : The python part of the plugin
+    MixCase.ini              : The default ini file
+    mixcase.txt                : The help file
+    MixCaseInv.ini          : an alternate ini file
+    MixCaseUTF-8.ini    : an UTF-8 encoded ini file
+
