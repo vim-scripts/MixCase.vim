@@ -1,0 +1,122 @@
+*mixcase.txt*			MixCase		Last Change:  2003/11/24 10:11:30 .
+
+Author:       Jean-Christophe Clavier <jcclavier{at}free.Fr>
+
+mixcase								*mixcase*
+
+1. introduction						|mixcase-intro|
+2. Commands provided					|mixcase-commands|
+3. Installation						|mixcase-install|
+
+==============================================================================
+1. Intoduction						*mixcase-intro*
+
+This plugin is absolutely useless.
+it modifies words :
+- in the hackers way (mIxCAsE)
+- in the Cambridge way in cginnahg the odrer of the lreetts which doesn't
+              afceft the raitaeidbly vrey mcuh (when the wdors are not too lnog)
+
+Please, feel free to send me any comment as I don't know what to add to this
+plugin but if you miss something (linked to m;×¢4Z3, of course), I'd had it
+with pleasure.
+
+==============================================================================
+2. Commands provided					*mixcase-commands*
+
+							*MCCambridge*
+:MCCambridge  which can work on a range of lines (the default is to mix the
+              whole text)
+              this function accepts one parameter that can have two values :
+              "Crgimdbae" (or 0) et "Cabdgimre" (or 1).
+              level 0 (Crgimdbae) : letters are mixed randomly (except the
+                  first and the last). This is the default.
+              level 1 (Cabdgimre) : letters are sorted in alphabetic order
+                  (except the first and the last).
+              This mode has been developped because
+              ariccondg to a sdtuy of the Cmrgdbiae uetsvnriiy, lreetts
+              oredr in a wrod is not iaoprtmnt. The only thing taht is
+              iatomrpnt is that the fsrit and the lsat are in a good
+              poiitosn. Otrhes can be in a toatl dersiodr, you can sltil
+              raed wuiohtt any ploberm. It is bscauee hamun brian deosn't
+              raed each leettr but the word as a wlohe
+              Note that this may be an hoax. I have not verified but i found
+              it funny to make a function of it : when the words are short
+              enough, it is true that the text is readable.
+
+							*MCHackerz*
+:MCHackerz    can also work on a range of lines. This function accepts one
+              parameter which can take 6 values : "ROokIE" (or 0), "CoWb0yZ" (or
+              1), "WaR£ØRðZ" (or 2), "WD®LãØr$" (or 3), "jÑ3ÿß3QF" (or 4) or
+              "j3¥ñqBEF" (or 5)
+              level 0 (ROokIE), only the letters case is modified.
+                  This mode is to be used only by MixcasE ROokIeS
+              level 1 (CoWb0yZ), Some letters are changed by digits. Nothing
+                  bad but may be useful for m1Xc4z3 COdING.
+              level 2 (WaR£ØRðZ), it is the mode of m|XCÅZE WaRlo®ÐZ.
+                  Transformed text begins to look a little more punchy. It
+                  is the default mode.
+              level 3 (WD®LãØr$). The level is getting higher : before the
+                  classical :MCHackerz, the "Cambridge" mix is applied.
+                  To be used by mi×c4se W4rL¤RÐz a little dyslexic
+                  Text is still almost readable, even for normal people.
+              level 4 (jÑ3ÿß3QF). here begins the MixCase for high level
+                  mI×(4se Wa®£¤rDz : before the classical MixCase, a rot13
+                  is applied. It is advised to be fluent with rot13 reading
+                  before using this option. You must pay attention to the
+                  fact that, oppositely to the normal rot13, this result is
+                  not reversible.
+              level 5 (j3¥ñqBEF). The total mix. Before the classical
+                  Mixcase, a "Cambridge" Mix and a rot13 are applied. It is
+                  then |ñÐISp3ñZ@ßLE to completly master the rot13 reading
+                  before using :MCHackerz j3¥ñqBEF. To be used only by
+                  hªRD¢õ®3 mI×cÅ$e Wª®LørD§
+
+							*MCMixWordUnderCurs*
+:MCMixWordUnderCurs    applies MCHackerz to the word under the cursor (with
+                  the same parameters)
+
+							*MCMixNSubstWordUnderCurs*
+:MCMixNSubstWordUnderCurs   applies MCHackerz to the word under the cursor
+                  (with the same parameters) and subtitute the result to all
+                  occurs of this word in the text (very interesting for
+                  M;x(ªz3 Wªr£øRÐs coding)
+                  The default value for the parameter is "CoWb0yZ"
+
+							*MCMixSearchPattern*
+:MCMixSearchPattern   applies MCHackerz to the content of the last search
+                  register (@/) result is written in the "m" register.
+
+							*MixCase*
+MixCase(a)        is a funtion that return the result of MCHackerz
+                  applied to the matchstring of a regular expression.
+                  It can be invoked in a command like
+                  :%s/RegExp/\=MixCase(level)
+                  The default level is "WaR£ØRðZ"
+
+==============================================================================
+2. Installation						*mixcase-install*
+
+Note : this plugin uses python
+
+It is made of three files : MixCase.vim, mixcase.txt and MixCase.py.
+MixCase.vim is to be dropped in the plugins directory, mixcase.txt in the doc
+directory and MixCase.py in a directory declared in the python path by a
+little >
+	let $PYTHONPATH=$PYTHONPATH . "/MyDirectory/Python"
+in your .vimrc
+
+To init the help tags, start Vim and do either
+:helptags ~/.vim/doc (for unix)
+or
+:helptags ~\vimfiles\doc (for MSWindows)
+to rebuild the tags file. Do ":help add-local-help" for more details.
+
+Bugs :~
+I tried to create commands with custom completion (command -complete=custom).
+It works well on my 6.2 vim version but it seems to cause errors on load on
+previous versions. So I commented the lines involved. If you've got a 6.2
+version, you can uncomment these lines (which are useless... even more than
+the rest of the plugin. It was just to test custom completion)
+
+vim:tw=78:ts=8:ft=help:norl:
